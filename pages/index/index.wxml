@@ -1,10 +1,69 @@
-<!--index.wxml-->
+<import src="../common/head.wxml" />
+
 <view class="container">
-  <view  bindtap="bindViewTap" class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+  <template is="head" data="{{title: 'Welcome to IKCEST Offline Class Signin System'}}"/>
+
+  <view class="page-body">
+
+     <view class="page-section">
+      <view class="page-body-info">
+        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}"></image>
+            <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+      </view>
+     </view>
+
+
+     <view wx:if="{{status == 'Init'}}">
+       <form bindsubmit="pushBindInformation">
+
+        <view class="input-page-section">
+            <view class="weui-cells__title">Please enter your login account</view>
+            <view class="weui-cells weui-cells_after-title">
+              <view class="weui-cell weui-cell_input">
+                <input name="bindingInformation" class="weui-input"/>
+              </view>
+            </view>
+        </view>
+
+          <view class="btn-area" id="buttonContainer">
+            <button formType="submit" type="primary" plain="true">Submit</button>
+          </view>
+
+        </form>
+     </view>
+
+     <view wx:elif="{{status == 'Pending'}}">
+      <view class="page-body">
+
+        <form bindsubmit="pushPassphase">
+
+         <view class="input-page-section">
+             <view class="weui-cells__title">Passphase has been send to {{email}}</view>
+             <view class="weui-cells weui-cells_after-title">
+               <view class="weui-cell weui-cell_input">
+                 <input name="passphaseInput" class="weui-input"/>
+               </view>
+             </view>
+         </view>
+
+           <view class="btn-area" id="buttonContainer">
+             <button formType="submit" type="primary" plain="true">Bind</button>
+           </view>
+
+         </form>
+
+
+
+         <view class="btn-area" id="goback">
+           <button bindtap="goback" type="primary" plain="true">Change Email</button>
+         </view>
+
+       </view>
+     </view>
+
+     <view wx:elif="{{status == 'Verified'}}"> Register Complete </view>
+     <view wx:else> loading </view>
+
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+
 </view>

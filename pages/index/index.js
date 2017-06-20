@@ -2,6 +2,8 @@
 var util = require('../../utils/util')
 
 var wxCheckSession = util.wxPromisify(wx.checkSession)
+var wxRequest = util.wxPromisify(wx.request)
+var wxShowModal = util.wxPromisify(wx.showModal)
 
 var app = getApp()
 
@@ -9,56 +11,100 @@ Page({
   data: {
     motto: 'Hello World',
     userInfo: {},
-    bindInfomation: {}
+    bindInfomation: {},
+    status: {},
+    email: {}
   },
   onLoad: function () {
     console.log('onLoad')
     var that = this
 
-    /*
-
-    // proise call get userInfo
-    app.getUserInfo().then(function (res) {
-      that.setData({
-        userInfo:res.userInfo
-      })
-    }).catch(function (err) {
-      console.log(err)
+    app.getID()
+    .then(res => {
+      console.log('index calling getID ' + res)
+      console.log('globalData: ' + app.globalData.meteorId)
     })
 
-    */
+    app.getUserInfo()
+    .then(res => {
+      that.setData({
+        userInfo:res
+      })
+    })
 
   },
   onShow: function() {
+    console.log('onShow')
     var that = this
 
-    console.log('onShow')
+    app.updateBindInfo()
+    .then(res => {
 
+      var bindInfomation = res.data.bindInformation
 
+      console.log(res.data.bindInformation)
 
-    /*
-    // check session
-    app.getSession()
-      .then( res => {
-        console.log(res)
-      })
+      if(bindInfomation.verified) {
 
-      */
+        that.setData({
+          status: 'Verified'
+        })
 
+        console.log('email,verified')
+      } else if (bindInfomation.email) {
 
-    app.getUserInfo()
-    .then( res => {
-      // console.log(res)
-      that.setData({
-        userInfo:res.userInfo
-      })
+        that.setData({
+          email:bindInfomation.email
+        })
+
+        that.setData({
+          status: 'Pending'
+        })
+
+        console.log('email address entered')
+      } else {
+
+        that.setData({
+          status: 'Init'
+        })
+
+        console.log('input email')
+      }
+      console.log('status: ' + this.data.status)
     })
 
+  },
+  pushBindInformation: function(e) {
+    var that = this
+    var email = e.detail.value.bindingInformation.toLowerCase();
 
-    app.updateBindInformation()
-    .then(res => console.log(res))
+    app.getID()
+    .then(res => {
 
+      wxRequest({
+        url:'https://tonny.xjtudlc.com/api/wx/test/accountbind',
+        data: {
+          meteorId:res,
+          email:email
+        }
+      })
+      .then(res => {
+        console.log(res)
 
+        if (res.data.err) {
+          wxShowModal({
+            content: res.data.err,
+            showCancel: false,
+          })
+          .then(res => {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            }
+          })
+        }
+      })
 
-  }
+    })
+    console.log('email: ' + email)
+  },
 })
