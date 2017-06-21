@@ -102,9 +102,50 @@ Page({
             }
           })
         }
+
       })
+      .then(this.onShow)
 
     })
     console.log('email: ' + email)
   },
+  pushPassphase: function(e) {
+    var that = this
+    var passphase = e.detail.value.passphaseInput.toLowerCase();
+
+    app.getID()
+    .then(res => {
+
+      wxRequest({
+        url:'https://tonny.xjtudlc.com/api/wx/test/emailVertify',
+        data: {
+          meteorId:res,
+          passphase:passphase
+        }
+      })
+      .then(res => {
+        console.log(res)
+
+        if (res.data.err) {
+          wxShowModal({
+            content: res.data.err,
+            showCancel: false,
+          })
+          .then(res => {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            }
+          })
+        }
+      })
+      .then(this.onShow)
+
+    })
+  },
+  goback: function() {
+    var that = this
+    that.setData({
+      status:'Init'
+    })
+  }
 })
