@@ -50,6 +50,10 @@ Page({
           status: 'Vertified'
         })
 
+        wx.redirectTo({
+          url: "/pages/program/program"
+        })
+
       } else if (bindInfomation.email) {
 
         that.setData({

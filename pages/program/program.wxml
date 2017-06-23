@@ -1,0 +1,66 @@
+<import src="../common/head.wxml" />
+
+<view class="page">
+    <view class="page__bd">
+
+      <template is="head" data="{{title: 'Welcome to IKCEST Offline Class Signin System'}}"/>
+
+        <view class="weui-panel weui-panel_access">
+            <view class="weui-panel__hd">Avaliable Checkins</view>
+            <view class="weui-panel__bd">
+
+              <view wx:if="{{err == true}}">
+                There is no avaliable course for you to check in
+              </view>
+
+              <view wx:elif="{{err == false}}">
+
+                <view wx:for="{{programs}}" class="weui-media-box weui-media-box_text">
+                    <view class="weui-media-box__title weui-media-box__title_in-text">{{item.subject}}</view>
+                    <view class="weui-media-box__desc">{{item.start_date}} - {{item.end_date}}</view>
+
+                    <view class="weui-media-box weui-media-box_small-appmsg">
+                        <view class="weui-cells weui-cells_in-small-appmsg">
+
+                            <view wx:for="{{item.course}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+
+                                <view id="{{item.courseId}}" class="weui-cell__bd weui-cell_primary">
+                                    <view>{{item.course_name}}</view>
+                                    <view>- {{item.lecturer_name}}</view>
+                                </view>
+
+                            </view>
+
+
+                        </view>
+                    </view>
+
+
+                    <view wx:if="{{checked == false}}">
+                      <view class="btn-area" id="{{programs}}">
+                        <button bindtap="checkin" type="primary" plain="true">Checkin</button>
+                      </view>
+                    </view>
+
+                    <view wx:if="{{checked == true}}">
+                      <view class="btn-area" id="{{programs}}">
+                        <button type="primary" disabled="true" plain="true">Checked in</button>
+                      </view>
+                    </view>
+
+                </view>
+
+              </view>
+
+              <view wx:else>
+                Loading
+              </view>
+
+            </view>
+
+        </view>
+
+
+
+    </view>
+</view>

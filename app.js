@@ -1,7 +1,5 @@
 // import promise
 var util = require('./utils/util')
-
-// import promise
 var Promise = require('./libs/es6-promise')
 
 // turn wx methods into promise
