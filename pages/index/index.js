@@ -42,7 +42,7 @@ Page({
 
       var bindInfomation = res.data.bindInformation
 
-      console.log(res.data.bindInformation)
+      // console.log(res.data.bindInformation)
 
       if(bindInfomation.vertified) {
 

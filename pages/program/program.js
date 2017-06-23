@@ -9,22 +9,20 @@ var app = getApp()
 
 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     meteorId:{},
     programs:{},
     checked:{},
-    err:{}
+    err:{},
+    errMsg:{}
   },
   onLoad: function(options) {
-    console.log('program page onLoad')
+    // console.log('program page onLoad')
   },
   onShow: function () {
-
-    this.getPrograms().then(res => console.log(res))
+    this.getPrograms().then(res => {
+      // console.log(res)
+    })
   },
   getPrograms: function() {
     var that = this
@@ -43,7 +41,8 @@ Page({
 
           if(res.data.err) {
             that.setData({
-              err:true
+              err:true,
+              errMsg:res.data.err
             })
           } else {
             that.setData({
@@ -75,7 +74,7 @@ Page({
               location:location
             }
           }).then(res => {
-            console.log(res)
+            // console.log(res)
             this.getPrograms().then(res => (console.log('checkin status updated')))
           })
         })

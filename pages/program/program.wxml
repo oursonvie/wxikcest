@@ -10,7 +10,7 @@
             <view class="weui-panel__bd">
 
               <view wx:if="{{err == true}}">
-                There is no avaliable course for you to check in
+                <view class="weui-panel__hd">{{errMsg}}</view>
               </view>
 
               <view wx:elif="{{err == false}}">
