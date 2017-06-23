@@ -14,7 +14,7 @@ var wxCheckSession = util.wxPromisify(wx.checkSession)
 //app.js
 App({
   onLaunch: function () {
-    console.log('onLaunch')
+    // console.log('onLaunch')
   },
   getID: function() {
     var that = this
@@ -34,7 +34,7 @@ App({
               }
             })
             .then( res => {
-              console.log(res.data)
+              // console.log(res.data)
               resolve(res.data.meteorId)
               that.globalData.meteorId = res.data.meteorId
             })
@@ -88,7 +88,7 @@ App({
             }
         })
         .then(res => {
-          console.log(res.data.bindInfomation)
+          // console.log(res.data.bindInformation)
           that.globalData.bindInfomation = res.data.bindInfomation
           resolve(res)
         })

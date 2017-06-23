@@ -16,13 +16,13 @@ Page({
     email: {}
   },
   onLoad: function () {
-    console.log('onLoad')
+    // console.log('onLoad')
     var that = this
 
     app.getID()
     .then(res => {
-      console.log('index calling getID ' + res)
-      console.log('globalData: ' + app.globalData.meteorId)
+      // console.log('index calling getID ' + res)
+      // console.log('globalData: ' + app.globalData.meteorId)
     })
 
     app.getUserInfo()
@@ -34,7 +34,7 @@ Page({
 
   },
   onShow: function() {
-    console.log('onShow')
+    // console.log('onShow')
     var that = this
 
     app.updateBindInfo()
@@ -44,13 +44,12 @@ Page({
 
       console.log(res.data.bindInformation)
 
-      if(bindInfomation.verified) {
+      if(bindInfomation.vertified) {
 
         that.setData({
-          status: 'Verified'
+          status: 'Vertified'
         })
 
-        console.log('email,verified')
       } else if (bindInfomation.email) {
 
         that.setData({
@@ -68,7 +67,6 @@ Page({
           status: 'Init'
         })
 
-        console.log('input email')
       }
       console.log('status: ' + this.data.status)
     })

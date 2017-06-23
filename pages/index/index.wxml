@@ -61,7 +61,7 @@
        </view>
      </view>
 
-     <view wx:elif="{{status == 'Verified'}}"> Register Complete </view>
+     <view wx:elif="{{status == 'Vertified'}}"> Register Complete </view>
      <view wx:else> loading </view>
 
   </view>
