@@ -2,6 +2,11 @@
 var util = require('./utils/util')
 var Promise = require('./libs/es6-promise')
 
+// import config
+const loginUrl = require('./config').loginUrl
+const userInfoUrl = require('./config').userInfoUrl
+const bindInfomationUrl = require('./config').bindInfomationUrl
+
 // turn wx methods into promise
 var wxLogin = util.wxPromisify(wx.login)
 var wxGetUserInfo = util.wxPromisify(wx.getUserInfo)
@@ -12,7 +17,7 @@ var wxCheckSession = util.wxPromisify(wx.checkSession)
 //app.js
 App({
   onLaunch: function () {
-    // console.log('onLaunch')
+    // console.log(loginUrl)
   },
   getID: function() {
     var that = this
@@ -26,7 +31,7 @@ App({
         .then(res => {
           if (res.code) {
             wxRequest({
-              url:'https://tonny.xjtudlc.com/api/wx/test/login',
+              url:loginUrl,
               data: {
                 code:res.code
               }
@@ -59,7 +64,7 @@ App({
           this.getID()
           .then(meteorId => {
             wxRequest({
-              url:'https://tonny.xjtudlc.com/api/wx/test/userInfo',
+              url:userInfoUrl,
               data: {
                 meteorId:meteorId,
                 userInfo:res.userInfo
@@ -80,7 +85,7 @@ App({
       this.getID()
       .then(res => {
         wxRequest({
-          url:'https://tonny.xjtudlc.com/api/wx/test/bindInfo',
+          url:bindInfomationUrl,
             data: {
               meteorId:res,
             }

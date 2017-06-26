@@ -1,6 +1,10 @@
 // import promise
 var util = require('../../utils/util')
 
+// import config
+const accountbindUrl = require('../../config').accountbindUrl
+const emailVertifyUrl = require('../../config').emailVertifyUrl
+
 var wxCheckSession = util.wxPromisify(wx.checkSession)
 var wxRequest = util.wxPromisify(wx.request)
 var wxShowModal = util.wxPromisify(wx.showModal)
@@ -84,7 +88,7 @@ Page({
     .then(res => {
 
       wxRequest({
-        url:'https://tonny.xjtudlc.com/api/wx/test/accountbind',
+        url: accountbindUrl,
         data: {
           meteorId:res,
           email:email
@@ -119,7 +123,7 @@ Page({
     .then(res => {
 
       wxRequest({
-        url:'https://tonny.xjtudlc.com/api/wx/test/emailVertify',
+        url: emailVertifyUrl,
         data: {
           meteorId:res,
           passphase:passphase

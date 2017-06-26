@@ -2,6 +2,11 @@
 var util = require('../../utils/util')
 var Promise = require('../../libs/es6-promise')
 
+// import config
+const studentProgramUrl = require('../../config').studentProgramUrl
+const checkinUrl = require('../../config').checkinUrl
+
+
 var wxRequest = util.wxPromisify(wx.request)
 var wxGetLocation = util.wxPromisify(wx.getLocation)
 
@@ -32,12 +37,13 @@ Page({
       app.getID().then(res => {
 
         wxRequest({
-          url: 'https://tonny.xjtudlc.com/api/wx/test/studentprogram',
+          url: studentProgramUrl,
           data: {
             meteorId: res
           }
         }).then(res => {
           resolve(res)
+          console.log(res)
 
           if(res.data.err) {
             that.setData({
@@ -67,7 +73,7 @@ Page({
         this.getPrograms().then(programs => {
 
           wxRequest({
-            url: 'https://tonny.xjtudlc.com/api/wx/test/checkin',
+            url: checkinUrl,
             data: {
               meteorId:meteorId,
               courseId:programs.data.programs[0].course[0].courseId,

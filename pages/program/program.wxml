@@ -6,14 +6,17 @@
       <template is="head" data="{{title: 'Welcome to IKCEST Offline Class Signin System'}}"/>
 
         <view class="weui-panel weui-panel_access">
+
+          <view wx:if="{{err == true}}">
+            <view class="weui-panel__hd">{{errMsg}}</view>
+          </view>
+
+          <view wx:elif="{{err == false}}">
+
             <view class="weui-panel__hd">Avaliable Checkins</view>
             <view class="weui-panel__bd">
 
-              <view wx:if="{{err == true}}">
-                <view class="weui-panel__hd">{{errMsg}}</view>
-              </view>
 
-              <view wx:elif="{{err == false}}">
 
                 <view wx:for="{{programs}}" class="weui-media-box weui-media-box_text">
                     <view class="weui-media-box__title weui-media-box__title_in-text">{{item.subject}}</view>
@@ -52,13 +55,12 @@
 
               </view>
 
-              <view wx:else>
-                Loading
               </view>
+
 
             </view>
 
-        </view>
+
 
 
 
