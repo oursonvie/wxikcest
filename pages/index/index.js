@@ -39,6 +39,7 @@ Page({
   },
   onShow: function() {
     // console.log('onShow')
+
     var that = this
 
     app.updateBindInfo()
@@ -48,7 +49,13 @@ Page({
 
       // console.log(res.data.bindInformation)
 
-      if(bindInfomation.vertified) {
+      if (bindInfomation.admin) {
+
+        wx.redirectTo({
+          url: "/pages/admin/admin"
+        })
+
+      } else if (bindInfomation.vertified) {
 
         that.setData({
           status: 'Vertified'
@@ -76,7 +83,7 @@ Page({
         })
 
       }
-      console.log('status: ' + this.data.status)
+      // console.log('status: ' + this.data.status)
     })
 
   },

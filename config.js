@@ -15,7 +15,7 @@ var config = {
     // 登录地址，用于建立会话
     loginUrl: `${host}/api/wx/login`,
 
-    userInfoUrl: `${host}/api/wx/userinfo`,
+    userInfoUrl: `${host}/api/wx/userInfo`,
 
     bindInfomationUrl: `${host}/api/wx/bindInfo`,
 
@@ -26,6 +26,10 @@ var config = {
     accountbindUrl: `${host}/api/wx/accountbind`,
 
     emailVertifyUrl: `${host}/api/wx/emailVertify`,
+
+    adminProgramUrl: `${host}/api/wx/admin/program`,
+
+    wxCourseSelect: `${host}/api/wx/admin/wxCourseSelect`
 
 
 };

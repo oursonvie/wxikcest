@@ -1,0 +1,10 @@
+@import "../common/lib/weui.wxss";
+
+button{
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+switch{
+  float: right;
+}
