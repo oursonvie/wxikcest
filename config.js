@@ -29,7 +29,11 @@ var config = {
 
     adminProgramUrl: `${host}/api/wx/admin/program`,
 
-    wxCourseSelect: `${host}/api/wx/admin/wxCourseSelect`
+    wxCourseSelect: `${host}/api/wx/admin/wxCourseSelect`,
+
+    wxLocationSelect: `${host}/api/wx/admin/wxLocationSelect`,
+
+    wxProgramLocation: `${host}/api/wx/admin/wxProgramLocation`
 
 
 };

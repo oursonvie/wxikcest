@@ -5,8 +5,14 @@ var Promise = require('../../libs/es6-promise')
 // import config
 const adminProgramUrl = require('../../config').adminProgramUrl
 const wxCourseSelect = require('../../config').wxCourseSelect
+const wxLocationSelect = require('../../config').wxLocationSelect
+const wxProgramLocation = require('../../config').wxProgramLocation
+
+// change location format
+var formatLocation = util.formatLocation
 
 var wxRequest = util.wxPromisify(wx.request)
+var wxChooseLocation = util.wxPromisify(wx.chooseLocation)
 
 var app = getApp()
 
@@ -20,18 +26,17 @@ Page({
 
   },
   onShow: function() {
+    console.log('onShow')
 
-    this.getAdminProgram()
+    this.getAdminProgram().then(res => {
+      // console.log(res)
+    })
 
   },
   getCourseId: function(e) {
-
     var courseId = e.currentTarget.id
 
-
     app.getID().then(res => {
-      console.log(res)
-
       wxRequest({
         url: wxCourseSelect,
         data: {
@@ -42,8 +47,6 @@ Page({
         this.getAdminProgram()
       })
     })
-
-
   },
   getAdminProgram: function() {
     var that = this
@@ -70,6 +73,31 @@ Page({
   onPullDownRefresh: function(){
     this.getAdminProgram().then(res => {
       wx.stopPullDownRefresh()
+    })
+  },
+  chooseLocation: function(e) {
+    var that = this
+    wxChooseLocation().then(res => {
+
+      var programId = e.currentTarget.id
+
+      console.log(res)
+
+      console.log(programId)
+
+      app.getID().then(meteorId => {
+        wxRequest({
+          url:wxLocationSelect,
+          data: {
+            programId: programId,
+            meteorId: meteorId,
+            location: res
+          }
+        }).then(res => {
+          this.getAdminProgram()
+        })
+      })
+
     })
   }
 })

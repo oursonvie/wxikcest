@@ -23,16 +23,42 @@
 
                           <view wx:for="{{item.course}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
 
-                              <view id="{{item.courseId}}" class="weui-cell__bd weui-cell_primary" bindtap="getCourseId">
-                                  <view wx:if="{{item.ifCheckin}}">{{item.course_name}} - {{item.lecturer_name}} <switch checked /></view>
+                              <view id="{{item.courseId}}" class="weui-cell__bd weui-cell_primary checkinSwtich" bindtap="getCourseId">
+
+                                <p class="weui-media-box__desc">
+
+                                  <view wx:if="{{item.ifCheckin}}"><text >{{item.course_name}} - {{item.lecturer_name}}</text> <switch checked /></view>
 
                                   <view wx:else>{{item.course_name}} - {{item.lecturer_name}} <switch /></view>
 
+                                </p>
 
 
                               </view>
 
                           </view>
+
+                          <view wx:if="{{!item.location}}">
+                            <text class="page-body-text">No Location Information</text>
+                          </view>
+
+                          <view wx:else>
+
+                            <text class="page-body-text">{{item.location.name}}</text>
+
+                            <view class="page-body-text-location">
+
+
+                              <text>E: {{item.location.longitude}}′</text>
+                              <text>N: {{item.location.latitude}}′</text>
+
+                            </view>
+
+                          </view>
+
+
+
+                          <button id="{{item._id}}" bindtap="chooseLocation">Choose Location</button>
 
 
                       </view>
