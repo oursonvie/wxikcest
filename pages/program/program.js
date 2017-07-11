@@ -86,7 +86,10 @@ Page({
         })
       })
     })
-
-
+  },
+  onPullDownRefresh: function(){
+    this.getPrograms().then(res => {
+      wx.stopPullDownRefresh()
+    })
   }
 })
